@@ -16,6 +16,9 @@ import optionSlice from '@/store/option/slice'
 import withdrawSlice from '@/store/withdraw/slice'
 import receiptSlice from '@/store/receipt/slice'
 
+import canvasSlice from '@/store/canvas/slice'
+import pageInfoSlice from '@/store/pageInfo/slice'
+
 
 
 
@@ -26,9 +29,13 @@ import receiptSlice from '@/store/receipt/slice'
 
 // persistReducer 为内置的切片管理；
 import { persistStore, persistReducer } from 'redux-persist';
+
 // storage redux-persist的思想是将要存储的数据通过storage存储在本地localstorage中；
 import storage from 'redux-persist/lib/storage';
 import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
+
+// 添加redux-undo 依赖用于返回和恢复
+import undoable, { excludeAction } from 'redux-undo'
 
 // 配置要存储的Slice；
 const persistConfig = {
@@ -58,7 +65,21 @@ export const reduxStore = configureStore({
         employeeSlice,
         optionSlice,
         withdrawSlice,
-        receiptSlice
+        receiptSlice,
+        pageInfoSlice,
+
+        // 添加undo依赖
+        canvasSlice: undoable(canvasSlice, {
+            limit: 20, //限制undo 20步
+            // 排除一些初始化和选取的方法
+            filter: excludeAction([
+                'canvasSlice/resetComponents',
+                'canvasSlice/changeSelectIdState',
+                'canvasSlice/selectPrevComponent',
+                'canvasSlice/selectNextComponent',
+            ])
+        }),
+
 
     },
     //关闭序列化检查

@@ -58,6 +58,14 @@ a {
     border: none;
 }
 
+a:hover {
+    text-decoration: none;
+}
+
+button {
+    cursor: pointer;
+}
+
 table {
     border-collapse: collapse;
     border-spacing: 0;
@@ -68,8 +76,14 @@ img {
     vertical-align: middle;
 }
 
+/* 重置dnd组件的拖拽样式 */
+div[role="button"] {
+    outline: 0;
+}
+
+
+
 /*主题色*/
 /* :root {
     --theme-color: #00995a;
 } */
-

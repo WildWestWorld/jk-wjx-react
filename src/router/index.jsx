@@ -10,6 +10,7 @@ const JKRegister = lazy(() => import('@/views/register/Register'));
 
 const JKLayout = lazy(() => import('@/views/layout/Layout'));
 const JKIndex = lazy(() => import('@/views/layoutChildren/index/Index'));
+const JKHome = lazy(() => import('@/views/home/Home'));
 
 // 错误页面
 const JKError404 = lazy(() => import('@/views/error/Error404'));
@@ -41,7 +42,8 @@ const router = [
     path: '/',
     element: <MainLayout />,
     children: [
-      { path: '/', element: lazyLoad(<JKIndex />) },
+      { path: '/', element: <Navigate to="/home" /> },
+      { path: '/home', element: lazyLoad(<JKHome />) },
       {
         path: '/login',
         element: lazyLoad(<JKLogin />),
@@ -101,7 +103,7 @@ const router = [
           },
 
           {
-            path: 'edit',
+            path: 'edit/:id',
             element: lazyLoad(<JKQuestionEdit></JKQuestionEdit>),
             meta: {
               title: '问卷编辑',
@@ -109,7 +111,7 @@ const router = [
           },
 
           {
-            path: 'statistic',
+            path: 'statistic/:id',
             element: lazyLoad(<JKQuestionStatistic></JKQuestionStatistic>),
             meta: {
               title: '问卷统计',

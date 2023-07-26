@@ -15,6 +15,6 @@ export const LayoutWrapper = styled.div`
     }
     .right{
         flex: 1;
-        margin-left: 60px;
+        margin-left: 60px;  
     }
 `;
